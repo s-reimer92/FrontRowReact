@@ -10,19 +10,6 @@ export default class MenuComponent extends Component {
         }
     }
 
-    onePress() {
-        this.props.navigation.navigate('Home');
-    }
-
-    twoPress() {
-        this.props.navigation.navigate('Favourites');
-    }
-
-    threePress() {
-        this.props.navigation.navigate('Upcoming');
-    }
-
-
     render() {
         return (
             <View style={styles.bar}>
@@ -37,14 +24,14 @@ export default class MenuComponent extends Component {
                 <TouchableHighlight
                 underlayColor='#ffa161'
                 style={styles.button}
-                onPress={(this.onePress)}>
+                onPress={() => this.props.navigation.navigate('Favourites')}>
                     <Text>Favourite Artists</Text>
                 </TouchableHighlight>
 
                 <TouchableHighlight
                 underlayColor='#ffa161'
                 style={styles.button}
-                onPress={(this.onePress)}>
+                onPress={() => this.props.navigation.navigate('Favourites')}>
                     <Text>Upcoming Shows</Text>
                 </TouchableHighlight>
 
