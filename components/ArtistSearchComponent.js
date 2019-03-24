@@ -12,7 +12,6 @@ export default class ArtistSearchComponent extends Component {
         super();
         this.state = {
             input: null,
-
             searchResults: [],
             favourites: [],
         }

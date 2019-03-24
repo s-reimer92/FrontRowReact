@@ -2,39 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, ListView, StyleSheet, TouchableHighlight, ImageBackground, Image } from 'react-native';
 
-const favourites = [
-    {
-        name: 'Belle & Sebastian'
-    },
-    {
-        name: 'Phoebe Bridgers'
-    },
-    {
-        name: 'Nick Cave & the Bad Seeds'
-    },
-    {
-        name: 'Hippo Campus'
-    },
-    {
-        name: 'Belle & Sebastian'
-    },
-    {
-        name: 'Phoebe Bridgers'
-    },
-    {
-        name: 'Nick Cave & the Bad Seeds'
-    },
-    {
-        name: 'Hippo Campus'
-    },
-];
+  
 
 export default class FavouritesComponent extends Component {
 
     constructor() {
         super();
-        
-        
         this.pressRow = this.pressRow.bind(this);
         this.renderRow = this.renderRow.bind(this)
     }
@@ -50,6 +23,7 @@ export default class FavouritesComponent extends Component {
     renderRow(task, sectionID, rowID, highlightRow) {
         return (
             <TouchableHighlight onPress={() => {
+                //This will bring up a modal with band info and a spotify player
                 this.pressRow(rowID);
                 highlightRow(sectionID, rowID);
             }}>
