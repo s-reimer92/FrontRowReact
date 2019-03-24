@@ -26,6 +26,7 @@ export default class FavouritesComponent extends Component {
                 //This will bring up a modal with band info and a spotify player
                 this.pressRow(rowID);
                 highlightRow(sectionID, rowID);
+                this.props.navigation.navigate('Modal', {name: task})
             }}>
                 <View style={styles.row}>
                     <Text style={styles.text}>{task}</Text>
