@@ -13,7 +13,8 @@
     "react-native-action-sheet": "^2.2.0",
     "react-native-actionsheet": "^2.4.2",
     "react-native-navigation": "^2.12.0",
-    "react-navigation": "^3.5.1"
+    "react-navigation": "^3.5.1",
+    "react-spotify-player": "^1.0.4"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

@@ -4,7 +4,6 @@ import { createStackNavigator, createAppContainer } from 'react-navigation'
 
 import ArtistSearchComponent from "./components/ArtistSearchComponent"
 import ArtistComponent from "./components/ArtistComponent"
-import MenuComponent from "./components/MenuComponent"
 import FavouritesComponent from "./components/FavouritesComponent"
 import UpcomingComponent from "./components/UpcomingComponent"
 

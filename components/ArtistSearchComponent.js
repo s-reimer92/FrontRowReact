@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Text, View,Image, StyleSheet, ImageBackground, TextInput, Button, TouchableHighlight } from 'react-native';
 import ActionSheet from 'react-native-actionsheet'
 
-import MenuComponent from "./MenuComponent"
-
 
 export default class ArtistSearchComponent extends Component {
 
@@ -13,7 +11,7 @@ export default class ArtistSearchComponent extends Component {
         this.state = {
             input: null,
             searchResults: [],
-            favourites: [],
+            favourites: ['Modest Mouse'],
         }
         this.fetchArtists = this.fetchArtists.bind(this)
     }
