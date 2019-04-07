@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, Image, Button, StyleSheet } from 'react-native';
-import SpotifyPlayer from 'react-spotify-player';
+
+
 
 
 export default class ArtistComponent extends Component {
@@ -21,11 +22,14 @@ export default class ArtistComponent extends Component {
             .then((response) => {
                 this.setState({
                     bio: response.artist.bio.summary,
-                    pic: response.artist.image[2]["#text"],
+                    pic: response.artist.image[4]["#text"],
                 })
             })
 
     }
+
+
+    
 
 
     render() {
@@ -35,19 +39,20 @@ export default class ArtistComponent extends Component {
         return (
             <View style = {styles.container}>
                 
-                <Text style={styles.title}>{this.state.pic}</Text>
+                <Text style={styles.title}>{name}</Text>
            
                 <Image
-                    source = {{uri: this.state.pic}}
-                    style= {{
-                        width: '100%',
-                        height: '100%',
-                        flex: 2
-                    }}
+                source = {{uri: this.state.pic}}
+                style= {styles.image}
                 />
 
                 <Text style={styles.text}>{this.state.bio}</Text>
 
+
+                <Image
+                source={require('./images/logoline.png')}
+                style={styles.footer}
+                />
               
             </View>
         );
@@ -58,17 +63,32 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: '#ff0',
+        flexDirection:'column',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
-        flexDirection:'column'
     },
     text: {
-        flex:2,
+        flex:5,
+        padding:'10%'
     },
     title: {
-        flex:1,
+        flex:2,
+        width:'100%',
+        top:'5%',
         textAlign: 'center',
-        alignItems: 'center',
-        justifyContent: 'center'
+        fontWeight:'bold',
+        fontSize:36,
+        resizeMode:'contain'
+    },
+    image: {
+        width: '80%',
+        height: '100%',
+        flex: 4,
+        borderRadius:20
+    },
+    footer: {
+        flex:2,
+        width:'80%',
+        height:'100%',
+        resizeMode:'contain'
     }
 })
