@@ -8,7 +8,6 @@ export default class FavouritesComponent extends Component {
 
     constructor() {
         super();
-        this.pressRow = this.pressRow.bind(this);
         this.renderRow = this.renderRow.bind(this)
     }
 

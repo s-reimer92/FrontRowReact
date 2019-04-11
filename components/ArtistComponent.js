@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, Image, Button, StyleSheet } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, WebView } from 'react-native';
+import { Video } from 'expo'
+import VideoPlayer from '@expo/videoplayer';
+import searchYouTube from 'youtube-api-search';
 
-
-
+const API_KEY = 'AIzaSyB2cgqrixWNw-gZ_SdBi96wvp9yYwSdIVY';
 
 export default class ArtistComponent extends Component {
 
@@ -20,8 +22,11 @@ export default class ArtistComponent extends Component {
         fetch('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + encodeURIComponent(name) + '&api_key=e006c67d7936e45b2cfa8fed71da22a6&format=json')
             .then((response) => response.json())
             .then((response) => {
+                var s = response.artist.bio.summary;
+                s = s.substring(0, s.indexOf('<')) + '...';
+
                 this.setState({
-                    bio: response.artist.bio.summary,
+                    bio: s,
                     pic: response.artist.image[4]["#text"],
                 })
             })
@@ -36,6 +41,7 @@ export default class ArtistComponent extends Component {
         const { navigation } = this.props;
         const name = navigation.getParam('name', 'no-name');
         this.fetchInfo(name);
+
         return (
             <View style = {styles.container}>
                 
@@ -62,13 +68,14 @@ export default class ArtistComponent extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ff0',
+        backgroundColor: '#234554',
         flexDirection: 'column',
         alignItems: 'center',
     },
     text: {
         flex: 5,
-        padding: '10%'
+        padding: '10%',
+        color: 'white'
     },
     title: {
         flex: 2,
@@ -77,7 +84,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: 36,
-        resizeMode: 'contain'
+        color: '#ff8a3a'
     },
     image: {
         width: '80%',

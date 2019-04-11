@@ -12,7 +12,7 @@ export default class ArtistSearchComponent extends Component {
         this.state = {
             input: null,
             searchResults: [],
-            favourites: ['Ponytails'],
+            favourites: [],
             concerts: [],
             locationPermission: 'unknown',
             position: 'unknown',
