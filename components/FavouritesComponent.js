@@ -23,7 +23,6 @@ export default class FavouritesComponent extends Component {
     renderRow(task, sectionID, rowID, highlightRow) {
         return (
             <TouchableHighlight onPress={() => {
-                //This will bring up a modal with band info and a spotify player
                 this.pressRow(rowID);
                 highlightRow(sectionID, rowID);
                 this.props.navigation.navigate('Modal', {name: task})

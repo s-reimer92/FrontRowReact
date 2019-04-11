@@ -29,7 +29,7 @@ export default class ArtistComponent extends Component {
     }
 
 
-    
+
 
 
     render() {
@@ -61,34 +61,34 @@ export default class ArtistComponent extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: '#ff0',
-        flexDirection:'column',
+        flexDirection: 'column',
         alignItems: 'center',
     },
     text: {
-        flex:5,
-        padding:'10%'
+        flex: 5,
+        padding: '10%'
     },
     title: {
-        flex:2,
-        width:'100%',
-        top:'5%',
+        flex: 2,
+        width: '100%',
+        top: '5%',
         textAlign: 'center',
-        fontWeight:'bold',
-        fontSize:36,
-        resizeMode:'contain'
+        fontWeight: 'bold',
+        fontSize: 36,
+        resizeMode: 'contain'
     },
     image: {
         width: '80%',
         height: '100%',
         flex: 4,
-        borderRadius:20
+        borderRadius: 20
     },
     footer: {
-        flex:2,
-        width:'80%',
-        height:'100%',
-        resizeMode:'contain'
+        flex: 2,
+        width: '80%',
+        height: '100%',
+        resizeMode: 'contain'
     }
 })
