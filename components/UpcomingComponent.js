@@ -1,93 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, ListView, StyleSheet, ImageBackground, Image, TouchableHighlight } from 'react-native';
-import Permissions from 'react-native-permissions';
+
 
 
 export default class UpcomingComponent extends Component {
 
     constructor() {
         super();
-        this.state = {
-            locationPermission: 'unknown',
-            position: 'unknown',
-        }
-        this.fetchLocationID = this.fetchLocationID.bind(this)
-        this.fetchNumPages = this.fetchNumPages.bind(this)
+        this.renderRow = this.renderRow.bind(this)
     }
 
     static navigationOptions ={
         tile: 'Upcoming',
     }
 
-    _requestPermission() {
-        Permissions.request('location')
-            .then(response => {
-                this.setState({
-                    locationPermission: response
-                })
-                //console.log("Response: " + response);
-            })
-    }
 
-    componentDidMount() {
-
-        
-
-        this._requestPermission();
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.fetchLocationID(position.coords.longitude, position.coords.latitude)
-        },
-            (error) => alert(JSON.stringify(error)));
-  
-    }
-
-
-    fetchLocationID(lng, lat) {
-        fetch("https://api.songkick.com/api/3.0/search/locations.json?location=geo:" + encodeURIComponent(lat) + ',' + encodeURIComponent(lng) + "&apikey=7XGKU5ekAA1FiTOX")
-            .then((response) => response.json())
-            .then((response) => {
-                this.fetchNumPages(response.resultsPage.results.location[0].metroArea.id)
-            })
-        
-    }
-
-    fetchNumPages(cityID) {
-        fetch("https://api.songkick.com/api/3.0/metro_areas/" + encodeURIComponent(cityID) + "/calendar.json?apikey=7XGKU5ekAA1FiTOX")
-            .then((response) => response.json())
-            .then((response) => {
-                this.setState({
-                    numPages: Math.ceil(response.resultsPage.totalEntries / 50)
-                })
-                fetchConcerts()
-            })
-
-    }
-
-    fetchConcerts() {
-
-        var resultsList = []
-
-        for (let i=1; i<this.state.numPages; i++) {
-
-            fetch("https://api.songkick.com/api/3.0/metro_areas/27398/calendar.json?apikey=7XGKU5ekAA1FiTOX&page=" + encodeURIComponent(i))
-                .then((response) => response.json())
-                .then((response) => {
-                    for (j=0; j<response.resultsPage.results.event.length; j++) {
-
-                        if (this.props.favourites.includes(response.resultsPage.results.event[j].performance[0].displayName)) {
-                            resultsList.push(response.resultsPage.results.event[j])
-                        }
-                    }
-                })
-
-
-        }
-
-        
-    }
-
-    renderRow(task, sectionID, rowID, highlightRow) {
+    renderRow(task) {
         return (
             <View style={styles.row}>
                 <Text style={styles.text}>{task}</Text>
@@ -99,12 +28,14 @@ export default class UpcomingComponent extends Component {
     render() {
 
         const { navigation } = this.props;
-        const favourites = navigation.getParam('favourites', 'no-favourites')
+        const favourites = navigation.getParam('favourites', 'no-favourites');
+        const concerts = navigation.getParam('concerts', 'no-concerts')
+
         const ds = new ListView.DataSource({
             rowHasChanged: (r1,r2) => r1 !== r2
         })
         this.state = {
-            favouriteDataSource: ds.cloneWithRows(favourites)
+            concertDataSource: ds.cloneWithRows(concerts)
         }
 
         return (
@@ -122,36 +53,41 @@ export default class UpcomingComponent extends Component {
                         <TouchableHighlight
                         underlayColor='#ffa161'
                         style={styles.button}
-                        onPress={() => this.props.navigation.navigate('Home', {favourites: favourites})}>
+                        onPress={() => this.props.navigation.navigate('Home', {favourites: favourites, concerts: concerts})}>
                             <Text>Search</Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight
                         underlayColor='#ffa161'
                         style={styles.button}
-                        onPress={() => this.props.navigation.navigate('Favourites', {favourites: favourites})}>
+                        onPress={() => this.props.navigation.navigate('Favourites', {favourites: favourites, concerts: concerts})}>
                             <Text>Favourite Artists</Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight
                         underlayColor='#ffa161'
                         style={styles.button}
-                        onPress={() => this.props.navigation.navigate('Upcoming', {favourites: favourites})}>
+                        onPress={() => this.props.navigation.navigate('Upcoming', {favourites: favourites, concerts: concerts})}>
                             <Text>Upcoming Shows</Text>
                         </TouchableHighlight>
 
                     </View>
 
-                    <ListView  
-                    dataSource = {this.state.favouriteDataSource}
-                    renderRow={this.renderRow}
-                    />
-                    
+
+
+                        <ListView  
+                        dataSource = {this.state.concertDataSource}
+                        renderRow={this.renderRow} />
+
+                            
+                  
                 </ImageBackground>
                 
             </View>
         )
+        
     }
+    
 }
 
 const styles = StyleSheet.create({
@@ -186,6 +122,10 @@ const styles = StyleSheet.create({
         height:200,
         marginTop:10,
 
+    },
+    loading: {  
+        width:250,
+        height:250
     },
     bar: {
         flexDirection: 'row',

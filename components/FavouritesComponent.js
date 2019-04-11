@@ -16,14 +16,10 @@ export default class FavouritesComponent extends Component {
         tile: 'Favourites',
     }
 
-    pressRow(rowID) {
-        console.log('Row number ' + rowID);;
-    }
 
     renderRow(task, sectionID, rowID, highlightRow) {
         return (
             <TouchableHighlight onPress={() => {
-                this.pressRow(rowID);
                 highlightRow(sectionID, rowID);
                 this.props.navigation.navigate('Modal', {name: task})
             }}>
@@ -40,6 +36,7 @@ export default class FavouritesComponent extends Component {
 
         const { navigation } = this.props;
         const favourites = navigation.getParam('favourites', 'no-favourites');
+        const concerts = navigation.getParam('concerts', 'no-concerts')
         console.log(favourites);
         const ds = new ListView.DataSource({
             rowHasChanged: (r1,r2) => r1 !== r2
@@ -63,21 +60,21 @@ export default class FavouritesComponent extends Component {
                         <TouchableHighlight
                         underlayColor='#ffa161'
                         style={styles.button}
-                        onPress={() => this.props.navigation.navigate('Home', {favourites: favourites})}>
+                        onPress={() => this.props.navigation.navigate('Home', {favourites: favourites, concerts: concerts})}>
                             <Text>Search</Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight
                         underlayColor='#ffa161'
                         style={styles.button}
-                        onPress={() => this.props.navigation.navigate('Favourites', {favourites: favourites})}>
+                        onPress={() => this.props.navigation.navigate('Favourites', {favourites: favourites, concerts: concerts})}>
                             <Text>Favourite Artists</Text>
                         </TouchableHighlight>
 
                         <TouchableHighlight
                         underlayColor='#ffa161'
                         style={styles.button}
-                        onPress={() => this.props.navigation.navigate('Upcoming', {favourites: favourites})}>
+                        onPress={() => this.props.navigation.navigate('Upcoming', {favourites: favourites, concerts: concerts})}>
                             <Text>Upcoming Shows</Text>
                         </TouchableHighlight>
 
